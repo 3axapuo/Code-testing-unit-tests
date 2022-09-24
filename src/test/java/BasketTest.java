@@ -1,12 +1,13 @@
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-@DisplayName("Тестирование класса корзина")
+@DisplayName("ТЕСТИРОВАНИЕ класса корзина")
 class BasketTest {
 
-    @BeforeAll
-    @DisplayName("Проверка на пустые значения массива продукты")
-    static void setUpApp() {
-        //System.out.println("Запускаюсь до выполнения всех тестов...");
+    @Test //@BeforeAll
+    @DisplayName("ТЕСТ, проверка на пустые значения массива продукты")
+    void setUpApp() { //static
         Assertions.assertNotNull(Basket.products); //массив не должен быть пустой
         for (String product : Basket.products) { // перебираем значения массива
             Assertions.assertNotNull(product);
@@ -14,12 +15,8 @@ class BasketTest {
         System.out.println("Тест пройден: наличие пустых значений в массиве продуктов не найдено");
     }
 
-    /*    @BeforeEach
-        void setUp() {
-            System.out.println("Вызываюсь до выполнения теста");
-        }*/
     @Test
-    @DisplayName("проверка акции 3 по цене 2")
+    @DisplayName("ТЕСТ, проверка акции 3 по цене 2")
     void sale3x2() {
         for (int product = 0; product < Basket.saleProducts3x2.length; product++) {
             if (Basket.saleProducts3x2[product] != null) { // если есть товар по акции то
@@ -30,26 +27,22 @@ class BasketTest {
     }
 
     @Test
-    @DisplayName("проверка на положительное число цен в массиве")
+    @DisplayName("ТЕСТ, проверка на положительное число цен в массиве")
     void zeroPrices() {
         for (int product : Basket.prices) { // перебираем значения массива
             Assertions.assertEquals(product > 0, true);
         }
         System.out.println("Тест пройден: все цены положительны");
     }
-/*    @AfterEach
-    void tearDown() {
-        System.out.println("Вызываюсь после вызова теста");
-    }*/
 
-    @AfterAll
-    @DisplayName("Проверка массивов на равное заполненность по количеству")
-    static void tearDownAll() {
+    @Test //@AfterAll
+    @DisplayName("ТЕСТ, проверка массивов на равное заполнение по количеству")
+    void tearDownAll() { // static
         Assertions.assertEquals(Basket.products.length, Basket.products.length);
         Assertions.assertEquals(Basket.products.length, Basket.saleCountProduct3x2);
         Assertions.assertEquals(Basket.products.length, Basket.saleProducts3x2.length);
         Assertions.assertEquals(Basket.products.length, Basket.prices.length);
-        System.out.println("Тест пройден: равное заполняемость количества во всех массивах: "
+        System.out.println("Тест пройден: равное заполнение количества во всех массивах: "
                 + Basket.products.length + "х" + Basket.prices.length);
     }
 }
